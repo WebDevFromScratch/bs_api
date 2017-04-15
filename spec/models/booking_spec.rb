@@ -37,6 +37,15 @@ describe Booking do
       expect(booking.errors[:end_at]).to contain_exactly 'must be after start_at'
     end
 
+    it 'is invalid if dates overlap with an existing booking for a given rental' do
+      rental = create :rental
+      create :booking, rental: rental, start_at: 2.days.from_now, end_at: 4.days.from_now
+      booking = build :booking, rental: rental, start_at: 1.day.from_now, end_at: 2.days.from_now
+
+      expect(booking).not_to be_valid
+      expect(booking.errors[:base]).to contain_exactly 'already booked for selected dates'
+    end
+
     it 'is invalid without client_email' do
       booking = build :booking, client_email: nil
 
