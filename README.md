@@ -23,4 +23,7 @@ Things you may want to cover:
 
 * ...
 
-# TODO - add a proper readme
+# TODOS:
+
+* add a proper readme
+* clean up test setup (set RSpec properly as the test runner, remove the unneeded '/test' folder)

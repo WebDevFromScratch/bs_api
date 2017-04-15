@@ -10,9 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 20170415094859) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "bookings", force: :cascade do |t|
+    t.datetime "start_at",                              null: false
+    t.datetime "end_at",                                null: false
+    t.string   "client_email",                          null: false
+    t.decimal  "price",        precision: 10, scale: 2, null: false
+    t.integer  "rental_id",                             null: false
+    t.index ["rental_id"], name: "index_bookings_on_rental_id", using: :btree
+  end
+
+  create_table "rentals", force: :cascade do |t|
+    t.string   "name",                                null: false
+    t.decimal  "daily_rate", precision: 10, scale: 2, null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+    t.index ["name"], name: "index_rentals_on_name", unique: true, using: :btree
+  end
+
+  add_foreign_key "bookings", "rentals"
 end

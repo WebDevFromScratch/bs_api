@@ -14,12 +14,18 @@ gem 'puma', '~> 3.0'
 
 group :development, :test do
   gem 'pry-rails'
+  gem 'rspec-rails', '~> 3.5'
 end
 
 group :development do
   gem 'listen', '~> 3.0.5'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+end
+
+group :test do
+  gem 'factory_girl'
+  gem 'faker'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
