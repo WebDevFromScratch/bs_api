@@ -1,4 +1,4 @@
-class Booking < ActiveRecord::Base
+class Booking < ApplicationRecord
   validates :start_at, :end_at, :price, :rental, presence: true
   validates :client_email, presence: true, format: /@/
   validate :start_at_cannot_be_in_the_past

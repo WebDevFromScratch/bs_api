@@ -1,4 +1,4 @@
-class Rental < ActiveRecord::Base
+class Rental < ApplicationRecord
   validates :name, presence: true, uniqueness: true
   validates :daily_rate, presence: true, numericality: { greater_than: 0 }
 
