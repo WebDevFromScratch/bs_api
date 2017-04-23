@@ -1,29 +1,29 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+A simple Rails API application, that allows basic CRUD actions for booking
+holiday
 
-Things you may want to cover:
+To be able to run the application locally, please follow the steps below:
 
-* Ruby version
+* You need to have Ruby installed. The app has been developer with Ruby version
+  2.3.0p0, so use this version for the best performance/compatibility
 
-* System dependencies
+* Install needed gems, by running `bundle install` (you need to have Bundler gem
+  installed first, if you don't, run `gem install bundler` before the previous
+  command)
 
-* Configuration
+* Postgres is used for the database layer, so be sure to have it installed as well.
+  After you do, run `rake db:create` and `rake db:migrate`
 
-* Database creation
+* After the above, you will be able to run the server, by firing `rails server`
+  command
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+* To run test suite, use `rails spec` or `rspec` commands
 
 # TODOS:
 
-* add a proper readme
-* clean up test setup (set RSpec properly as the test runner, remove the unneeded '/test' folder)
+* add CRUD API endpoints for Bookings
+
+* add seeds for easier DB interaction from the beginning
+
+* check `TODO:` remarks in the code and fix those
