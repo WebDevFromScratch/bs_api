@@ -5,7 +5,7 @@ describe 'Rentals API', type: :request do
     it 'returns a list or rentals' do
       2.times { create :rental }
 
-      get rentals_path
+      get rentals_path, headers: token_header
 
       expect(json_response['data'].count).to eq 2
       expect(response).to have_http_status(200)
@@ -16,14 +16,14 @@ describe 'Rentals API', type: :request do
     it 'returns a rental, when rental is found' do
       rental = create :rental, name: 'Aloha Villa'
 
-      get rental_path(rental)
+      get rental_path(rental), headers: token_header
 
       expect(json_response['data']['attributes']['name']).to eq 'Aloha Villa'
       expect(response).to have_http_status(200)
     end
 
     it 'retuns not found response, when rental is not found' do
-      get rental_path(1234)
+      get rental_path(1234), headers: token_header
 
       expect(json_response['errors']).to eq 'Not found'
       expect(response).to have_http_status(404)
@@ -35,7 +35,7 @@ describe 'Rentals API', type: :request do
       rental_params = { name: 'Aloha Villa', daily_rate: 50 }
 
       expect do
-        post rentals_path, params: { rental: rental_params }
+        post rentals_path, params: { rental: rental_params }, headers: token_header
       end.to change { Rental.all.count }.by(1)
 
       expect(json_response['data']['attributes']['name']).to eq 'Aloha Villa'
@@ -46,7 +46,7 @@ describe 'Rentals API', type: :request do
       rental_params = { name: '', daily_rate: 50 }
 
       expect do
-        post rentals_path, params: { rental: rental_params }
+        post rentals_path, params: { rental: rental_params }, headers: token_header
       end.not_to change { Rental.all.count }
 
       expect(json_response['name']).to contain_exactly 'can\'t be blank'
@@ -58,7 +58,7 @@ describe 'Rentals API', type: :request do
     it 'updates a rental and responds with success response, when right params passed' do
       rental = create :rental, name: 'Aloha Villa'
 
-      patch rental_path(rental), params: { rental: { name: 'Aloha Mansion' } }
+      patch rental_path(rental), params: { rental: { name: 'Aloha Mansion' } }, headers: token_header
 
       expect(rental.reload.name).to eq 'Aloha Mansion'
       expect(json_response['data']['attributes']['name']).to eq 'Aloha Mansion'
@@ -68,7 +68,7 @@ describe 'Rentals API', type: :request do
     it 'does not update a rental and responds with errors, when incorrect params passed' do
       rental = create :rental, name: 'Aloha Villa'
 
-      patch rental_path(rental), params: { rental: { name: '' } }
+      patch rental_path(rental), params: { rental: { name: '' } }, headers: token_header
 
       expect(rental.reload.name).to eq 'Aloha Villa'
       expect(json_response['name']).to contain_exactly 'can\'t be blank'
@@ -76,7 +76,7 @@ describe 'Rentals API', type: :request do
     end
 
     it 'retuns not found response, when rental is not found' do
-      patch rental_path(1234), params: { rental: { name: '' } }
+      patch rental_path(1234), params: { rental: { name: '' } }, headers: token_header
 
       expect(json_response['errors']).to eq 'Not found'
       expect(response).to have_http_status(404)
@@ -87,14 +87,14 @@ describe 'Rentals API', type: :request do
     it 'destroys a rental and returns a correct response' do
       rental = create :rental
 
-      delete rental_path(rental)
+      delete rental_path(rental), headers: token_header
 
       expect(Rental.find_by(id: rental.id)).to eq nil
       expect(response).to have_http_status(204)
     end
 
     it 'retuns not found response, when rental is not found' do
-      delete rental_path(1234)
+      delete rental_path(1234), headers: token_header
 
       expect(json_response['errors']).to eq 'Not found'
       expect(response).to have_http_status(404)
