@@ -58,5 +58,7 @@ RSpec.configure do |config|
   config.filter_run focus: true
   config.run_all_when_everything_filtered = true
 
-  config.include ApiHelper # TODO: this should probably only get loaded for request specs
+  [:request, :controller].each do |type|
+    config.include ApiHelper, type: type
+  end
 end
