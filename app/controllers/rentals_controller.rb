@@ -1,6 +1,6 @@
 class RentalsController < ApplicationController
   def index
-    # NOTE: paginate as the next step, probably
+    # NOTE: pagination would probably be the next step
     rentals = Rental.all
     render json: rentals
   end

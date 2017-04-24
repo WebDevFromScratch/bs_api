@@ -1,3 +1,5 @@
 Rails.application.routes.draw do
-  resources :rentals
+  resources :rentals do
+    resources :bookings
+  end
 end

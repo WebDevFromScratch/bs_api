@@ -22,10 +22,11 @@ class Booking < ApplicationRecord
   end
 
   def dates_do_not_overlap_by_rental
-    # NOTE: this should be somehow also protected with a DB constraint..
     if rental && start_at && end_at &&
       Booking.by_rental_id(rental.id).where(start_at: start_at..end_at)
-             .or(Booking.by_rental_id(rental.id).where(end_at: start_at..end_at)).present?
+             .or(Booking.by_rental_id(rental.id).where(end_at: start_at..end_at))
+             .where.not(id: self.id)
+             .present?
 
       errors.add(:base, 'already booked for selected dates')
     end

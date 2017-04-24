@@ -27,3 +27,5 @@ To be able to run the application locally, please follow the steps below:
 * add seeds for easier DB interaction from the beginning
 
 * check `TODO:` remarks in the code and fix those
+
+* add controller specs, to test authentication (as abstract controller, for ApplicationController)
