@@ -23,8 +23,8 @@ class Booking < ApplicationRecord
 
   def dates_do_not_overlap_by_rental
     if rental && start_at && end_at &&
-      Booking.by_rental_id(rental.id).where(start_at: start_at..end_at)
-             .or(Booking.by_rental_id(rental.id).where(end_at: start_at..end_at))
+      Booking.by_rental_id(rental.id).where(start_at: start_at.beginning_of_day..end_at.end_of_day)
+             .or(Booking.by_rental_id(rental.id).where(end_at: start_at.beginning_of_day..end_at.end_of_day))
              .where.not(id: self.id)
              .present?
 
