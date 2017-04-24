@@ -22,6 +22,4 @@ To be able to run the application locally, please follow the steps below:
 
 # TODOS:
 
-* add seeds for easier DB interaction from the beginning
-
-* check `TODO:` remarks in the code and fix those
+* check `TODO:` remarks in the code and consider those (1 left - unsure about it)
